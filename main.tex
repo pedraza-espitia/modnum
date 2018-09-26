@@ -4,13 +4,17 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[makeroom]{cancel}
 % hyperref para autoref, amsmath para split
 \graphicspath{{./figs/}{./imgs/}}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{listings}
+\newcommand\pder[2]{\ensuremath {\dfrac{\partial#1}{\partial#2}}} 
+\newcommand{\ppder}[2]{ \ensuremath {\dfrac{\partial^2 #1}{\partial #2^2}}}
+\newcommand{\ppcder}[3]{ \ensuremath {\dfrac{\partial^2 #1}{\partial #2\partial #3}}}
 
 \title{Tarea 3}
-\author{Pedraza-Espitia Salvador}
+\author{Pedraza-Espitia S.}
 \date{}
 
 \begin{document}
@@ -46,8 +50,8 @@ Recuerda que:
     \begin{split}
     k_1 = & h*f(t_i, y_i)\\
     k_2 = & h*f(t_i + h/2, y_i + k_1/2)\\
-k_3 = & h*f(t_i + h/2, y_i + k_2/2)\\
-k_4 = & h*f(t_i + h, y_i + k_3)
+    k_3 = & h*f(t_i + h/2, y_i + k_2/2)\\
+    k_4 = & h*f(t_i + h, y_i + k_3)
     \end{split}
 \end{equation}
 \begin{equation}
@@ -58,6 +62,123 @@ k_4 = & h*f(t_i + h, y_i + k_3)
 Considera la ecuación diferencial $y' = y- 2*t^3 + 2$ con $y(t=0) = 0.5$. Escribe un código para
 calcular la solución con el método de Runge-Kutta de orden 4.
 
+\section{Aguas soméras}
+
+\begin{equation}
+	\pder{u}{t} - fv = -g \pder{h}{x}
+	\label{eq:uno}
+\end{equation}
+
+\begin{equation}
+	\pder{v}{t} + fu = -g \pder{h}{y}
+	\label{eq:dos}
+\end{equation}
+
+\begin{equation}
+	\pder{h}{t} + H\left( \pder{u}{x} + \pder{v}{y} \right) = 0
+	\label{eq:continuidad}%tres
+\end{equation}
+
+\begin{equation}
+	\pder{[\eqref{eq:uno}]}{x} \Rightarrow
+	\ppcder{u}{x}{t} - f\pder{v}{x} = -g \ppder{h}{x}
+	\label{eq:cuatro}
+\end{equation}
+
+\begin{equation}
+	\pder{[\eqref{eq:dos}]}{y} \Rightarrow
+	\ppcder{v}{y}{t} - f\pder{v}{y} = -g \ppder{h}{y}
+	\label{eq:cinco}
+\end{equation}
+
+\begin{equation}
+	[\eqref{eq:cuatro}+\eqref{eq:cinco}] \Rightarrow
+	\pder{}{t}\left(\pder{u}{x}+\pder{v}{y}\right) + f\left(\pder{u}{y}-\pder{v}{x}\right) = -g \left(\ppder{h}{x}+\ppder{h}{y}\right)
+	\label{eq:seis}
+\end{equation}
+
+\begin{equation}
+	\pder{[\eqref{eq:continuidad}]}{t} \Rightarrow
+	\ppder{h}{t} + H\pder{}{t}\left(\pder{u}{x}+\pder{v}{y}\right) = 0
+	\label{eq:siete}
+\end{equation}
+
+\newcommand{\uymvx}{\left(\pder{u}{x}+\pder{v}{y}\right)}
+\newcommand{\uxpvy}{\left(\pder{u}{x}+\pder{v}{y}\right)}
+\newcommand{\hxphy}{\left(\ppder{h}{x}-\ppder{h}{y}\right)}
+\begin{equation}
+    \begin{split}
+	[\eqref{eq:siete}-H*\eqref{eq:seis}] \Rightarrow &
+	\ppder{h}{t} + H\pder{}{t}\uxpvy -
+	H\pder{}{t}\uxpvy \\
+	& - Hf\left(\pder{u}{y}-\pder{v}{x}\right) = g \hxphy
+    \end{split}
+    \nonumber
+\end{equation}
+\begin{equation}
+    \Rightarrow \ppder{h}{t} - Hf\uymvx
+	 -gH \hxphy = 0
+    \label{eq:ocho}
+\end{equation}
+
+\begin{equation}
+	\pder{[\eqref{eq:uno}]}{y} \Rightarrow
+	\ppcder{u}{y}{t} - f\pder{v}{y} = -g \ppcder{h}{y}{x}
+	\label{eq:nueve}
+\end{equation}
+
+\begin{equation}
+	\pder{[\eqref{eq:dos}]}{x} \Rightarrow
+	\ppcder{v}{x}{t} + f\pder{u}{x} = -g \ppcder{h}{x}{y}
+	\label{eq:diez}
+\end{equation}
+
+\begin{equation}
+	[\eqref{eq:nueve}+\eqref{eq:diez}] \Rightarrow
+	\pder{}{t} \uymvx = f \uxpvy
+	\label{eq:once}
+\end{equation}
+
+\begin{equation}
+	[\eqref{eq:continuidad}] \Rightarrow
+	\uxpvy = -\frac1H \pder{h}{t}
+	\label{eq:tres.uno}
+\end{equation}
+
+\begin{equation}
+	[\eqref{eq:tres.uno} \text{ y } \eqref{eq:once}] \Rightarrow
+	\pder{}{t} \uymvx = -f\frac1H \pder{h}{t}
+	\label{eq:doce}
+\end{equation}
+
+\begin{equation}
+	\pder{[\eqref{eq:ocho}]}{t} \Rightarrow
+	\pder{}{t}\ppder{h}{t} - Hf\pder{}{t}\uymvx - gH \pder{}{t}\hxphy = 0
+	\label{eq:trece}
+\end{equation}
+
+\begin{equation}
+	[\eqref{eq:once} \text{ y } \eqref{eq:trece}] \Rightarrow
+	\pder{}{t}\ppder{h}{t}
+	- Hf^2\uxpvy - gH \pder{}{t}\hxphy = 0
+	\label{eq:catorce}
+\end{equation}
+
+\begin{equation}
+	[\eqref{eq:tres.uno} \text{ y } \eqref{eq:catorce}] \Rightarrow
+	\pder{}{t}\ppder{h}{t}
+	- Hf^2 \left(-\frac1H \pder{h}{t}\right) - gH \pder{}{t}\hxphy = 0
+	\label{eq:quince}
+\end{equation}
+
+\begin{equation}
+	\pder{}{t}\ppder{h}{t}
+	+ f^2 \left(\pder{h}{t}\right) - gH \pder{}{t}\hxphy = 0
+\end{equation}
+\begin{equation}
+	\pder{}{t}\left[\ppder{}{t}
+	+ f^2 - gH\left(\ppder{}{x}+\ppder{}{y}\right)\right]h = 0
+\end{equation}
 optimizar y proteger pdf al final.
 
 Un archivo .m con secciones %%

@@ -1,2 +1,2 @@
-% author Salvador
-a = 1;
+% author Pedraza-Espitia S.
+% obtener corte meridional

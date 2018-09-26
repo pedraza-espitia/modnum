@@ -8,7 +8,7 @@
 % hyperref para autoref, amsmath para split
 \graphicspath{{./figs/}{./imgs/}}
 \usepackage[font=small,labelfont=bf]{caption}
-\usepackage{listings}
+\usepackage{listings,figs/tuneatantito}
 \newcommand\pder[2]{\ensuremath {\dfrac{\partial#1}{\partial#2}}} 
 \newcommand{\ppder}[2]{ \ensuremath {\dfrac{\partial^2 #1}{\partial #2^2}}}
 \newcommand{\ppcder}[3]{ \ensuremath {\dfrac{\partial^2 #1}{\partial #2\partial #3}}}
@@ -27,8 +27,9 @@ paso del huracán y guardar las gráficas de cuatro tiempos diferentes en format
 
 
 \lstinputlisting[language=Matlab]{./MatlabCodes/inciso1.m}
-\href{img.jpg}{clic aquí para abrir script}
-\url{google.com}
+\href{script1.txt}{Clic aquí para abrir script}
+
+\url{script1.m}
 
 \section{Divergencia}
 Hacer un programa que calcule la divergencia del viento a 10 metros, utilizando diferencias
@@ -109,8 +110,8 @@ calcular la solución con el método de Runge-Kutta de orden 4.
 \begin{equation}
     \begin{split}
 	[\eqref{eq:siete}-H*\eqref{eq:seis}] \Rightarrow &
-	\ppder{h}{t} + H\pder{}{t}\uxpvy -
-	H\pder{}{t}\uxpvy \\
+	\ppder{h}{t} + \cancel{H\pder{}{t}\uxpvy} -
+	\cancel{H\pder{}{t}\uxpvy} \\
 	& - Hf\left(\pder{u}{y}-\pder{v}{x}\right) = g \hxphy
     \end{split}
     \nonumber

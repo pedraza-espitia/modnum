@@ -6,6 +6,7 @@
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage[makeroom]{cancel}
 % hyperref para autoref, amsmath para split
+\usepackage{subfig,placeins}
 \graphicspath{{./figs/}{./imgs/}}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{listings,figs/tuneatantito}
@@ -26,10 +27,10 @@ Realizar un programa que realice y grafique un corte meridional de U en donde se
 paso del huracán y guardar las gráficas de cuatro tiempos diferentes en formato jpg.
 
 
-\lstinputlisting[language=Matlab]{./MatlabCodes/inciso1.m}
-\href{script1.txt}{Clic aquí para abrir script}
-
-\url{script1.m}
+\lstinputlisting[language=Matlab]{./MatlabCodes/t3inciso1.m}
+%\href{script1.txt}{Clic aquí para abrir script}
+%\url{script1.m}
+\input{inputs/i1}
 
 \section{Divergencia}
 Hacer un programa que calcule la divergencia del viento a 10 metros, utilizando diferencias
@@ -37,11 +38,17 @@ finitas centradas, sin emplear funciones de matlab (DIV), y guardar las gráfica
 cuatro tiempos diferentes. Tomar en cuenta que la latitud y longitud que proporciona el
 modelo están en grados y deberán convertirse a metros.
 
-\section{Rotacional}
+En la siguiente \autoref{sec:rotacional} se fusionan el ejercicio de obtener divergencia y rotacional en un s\'olo script. Las gr\'aficas que se piden se muestran en la \autoref{fig:dos}.
+\input{inputs/i2}
+
+\section{Rotacional}\label{sec:rotacional}
 Hacer un programa que calcule el rotacional del viento en el nivel 8, utilizando diferencias
 finitas centradas, sin emplear funciones de matlab (CURL), y guardar las gráficas resultantes
 de cuatro tiempos diferentes. Tomar en cuenta que la latitud y longitud que proporciona el
 modelo están en grados y deberán convertirse a metros.
+\lstinputlisting[language=Matlab]{./MatlabCodes/t3incisos2y3.m}
+\input{inputs/i3}
+\FloatBarrier
 
 \section{Resolver \texorpdfstring{$y' = cos(t)+sin(t)$}{y' = cos(t)+ ...} usando RK4}
 Considera la ecuación diferencial $y' = cos(t) +sin(t)$ con $y(t=0) = 1$ y $h=0.1$. Escribe un código
@@ -59,9 +66,16 @@ Recuerda que:
     y_{i+1} = y_i + 1/6(k_1 + 2k_2 + 2k_3 + k_4)
     \label{eq:rec}
 \end{equation}
+
+\lstinputlisting[language=Matlab]{./MatlabCodes/rk4_inciso4.m}
+\input{inputs/i4.tex}
+
 \section{Resolver \texorpdfstring{$y'=y- 2*t^3 + 2$}{y'=y  2*t ...} con RK4}
 Considera la ecuación diferencial $y' = y- 2*t^3 + 2$ con $y(t=0) = 0.5$. Escribe un código para
 calcular la solución con el método de Runge-Kutta de orden 4.
+
+\lstinputlisting[language=Matlab]{./MatlabCodes/Rk4_inciso5.m}
+\input{inputs/i5.tex}
 
 \section{Aguas soméras}
 
@@ -180,9 +194,5 @@ calcular la solución con el método de Runge-Kutta de orden 4.
 	\pder{}{t}\left[\ppder{}{t}
 	+ f^2 - gH\left(\ppder{}{x}+\ppder{}{y}\right)\right]h = 0
 \end{equation}
-optimizar y proteger pdf al final.
 
-Un archivo .m con secciones %%
-para cada inciso,
-y archivos .txt para cada inciso.
 \end{document}

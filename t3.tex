@@ -30,7 +30,7 @@ paso del huracán y guardar las gráficas de cuatro tiempos diferentes en format
 \lstinputlisting[language=Matlab]{./MatlabCodes/t3inciso1.m}
 %\href{script1.txt}{Clic aquí para abrir script}
 %\url{script1.m}
-\input{inputs/i1}
+\input{inputs/t3i1}
 
 \section{Divergencia}
 Hacer un programa que calcule la divergencia del viento a 10 metros, utilizando diferencias
@@ -39,7 +39,7 @@ cuatro tiempos diferentes. Tomar en cuenta que la latitud y longitud que proporc
 modelo están en grados y deberán convertirse a metros.
 
 En la siguiente \autoref{sec:rotacional} se fusionan el ejercicio de obtener divergencia y rotacional en un s\'olo script. Las gr\'aficas que se piden se muestran en la \autoref{fig:dos}.
-\input{inputs/i2}
+\input{inputs/t3i2}
 
 \section{Rotacional}\label{sec:rotacional}
 Hacer un programa que calcule el rotacional del viento en el nivel 8, utilizando diferencias
@@ -47,7 +47,7 @@ finitas centradas, sin emplear funciones de matlab (CURL), y guardar las gráfic
 de cuatro tiempos diferentes. Tomar en cuenta que la latitud y longitud que proporciona el
 modelo están en grados y deberán convertirse a metros.
 \lstinputlisting[language=Matlab]{./MatlabCodes/t3incisos2y3.m}
-\input{inputs/i3}
+\input{inputs/t3i3}
 \FloatBarrier
 
 \section{Resolver \texorpdfstring{$y' = cos(t)+sin(t)$}{y' = cos(t)+ ...} usando RK4}
@@ -61,21 +61,23 @@ Recuerda que:
     k_3 = & h*f(t_i + h/2, y_i + k_2/2)\\
     k_4 = & h*f(t_i + h, y_i + k_3)
     \end{split}
+    \nonumber
 \end{equation}
 \begin{equation}
     y_{i+1} = y_i + 1/6(k_1 + 2k_2 + 2k_3 + k_4)
     \label{eq:rec}
+    \nonumber
 \end{equation}
 
-\lstinputlisting[language=Matlab]{./MatlabCodes/rk4_inciso4.m}
-\input{inputs/i4.tex}
+\lstinputlisting[language=Matlab]{./MatlabCodes/t3rk4_inciso4.m}
+\input{inputs/t3i4.tex}
 
 \section{Resolver \texorpdfstring{$y'=y- 2*t^3 + 2$}{y'=y  2*t ...} con RK4}
 Considera la ecuación diferencial $y' = y- 2*t^3 + 2$ con $y(t=0) = 0.5$. Escribe un código para
 calcular la solución con el método de Runge-Kutta de orden 4.
 
-\lstinputlisting[language=Matlab]{./MatlabCodes/Rk4_inciso5.m}
-\input{inputs/i5.tex}
+\lstinputlisting[language=Matlab]{./MatlabCodes/t3Rk4_inciso5.m}
+\input{inputs/t3i5.tex}
 
 \section{Aguas soméras}
 
@@ -102,13 +104,17 @@ calcular la solución con el método de Runge-Kutta de orden 4.
 
 \begin{equation}
 	\pder{[\eqref{eq:dos}]}{y} \Rightarrow
-	\ppcder{v}{y}{t} - f\pder{v}{y} = -g \ppder{h}{y}
+	\ppcder{v}{y}{t} + f\pder{v}{y} = -g \ppder{h}{y}
 	\label{eq:cinco}
 \end{equation}
 
+\newcommand{\uymvx}{\left(\pder{u}{y}-\pder{v}{x}\right)}
+\newcommand{\uxpvy}{\left(\pder{u}{x}+\pder{v}{y}\right)}
+\newcommand{\hxphy}{\left(\ppder{h}{x}+\ppder{h}{y}\right)}
+
 \begin{equation}
 	[\eqref{eq:cuatro}+\eqref{eq:cinco}] \Rightarrow
-	\pder{}{t}\left(\pder{u}{x}+\pder{v}{y}\right) + f\left(\pder{u}{y}-\pder{v}{x}\right) = -g \left(\ppder{h}{x}+\ppder{h}{y}\right)
+	\pder{}{t}\left(\pder{u}{x}+\pder{v}{y}\right) + f\uymvx = -g \hxphy
 	\label{eq:seis}
 \end{equation}
 
@@ -118,9 +124,6 @@ calcular la solución con el método de Runge-Kutta de orden 4.
 	\label{eq:siete}
 \end{equation}
 
-\newcommand{\uymvx}{\left(\pder{u}{x}+\pder{v}{y}\right)}
-\newcommand{\uxpvy}{\left(\pder{u}{x}+\pder{v}{y}\right)}
-\newcommand{\hxphy}{\left(\ppder{h}{x}-\ppder{h}{y}\right)}
 \begin{equation}
     \begin{split}
 	[\eqref{eq:siete}-H*\eqref{eq:seis}] \Rightarrow &

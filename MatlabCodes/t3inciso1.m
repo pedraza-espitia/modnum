@@ -38,7 +38,7 @@ for tt=1:46
     %title(tt) % codigo para obtener 4 imagenes jpeg:
     if figst(num) == tt
         %fig.PaperUnits='inches';
-        nombreimg = ['fig',num2str(tt),'.jpeg'];
+        nombreimg = ['t3fig',num2str(tt),'.jpeg'];
         print(nombreimg,'-djpeg','-r0')
         if num < 4
             num = num+1;

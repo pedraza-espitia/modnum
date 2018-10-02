@@ -62,7 +62,7 @@ for kk=1:Times_l(1)
    pcolor(XLONG,XLAT,Div(:,:,kk)),shading flat, caxis([-1e-3 1e-3]), colorbar
    title(int2str(kk))
    if figst(num) == kk
-        nombreimg = ['div',num2str(num),'.jpeg'];
+        nombreimg = ['t3div',num2str(num),'.jpeg'];
         print(nombreimg,'-djpeg','-r0')
         if num < 4
             num = num+1;
@@ -93,7 +93,7 @@ for kk=1:Times_l(1)
    title(int2str(kk))
    pause(.2)
    if figst(num) == kk
-        nombreimg = ['rot',num2str(num),'.jpeg'];
+        nombreimg = ['t3rot',num2str(num),'.jpeg'];
         print(nombreimg,'-djpeg','-r0')
         if num < 4
             num = num+1;

@@ -2,6 +2,4 @@
 Using Matlab plus LaTeX
 in my Numerical simulation course
 
-[Download hw3](https://github.com/pedraza-espitia/salvador/blob/master/Reportes/modnum_t3.pdf)
-
-<a href="https://github.com/pedraza-espitia/salvador/blob/master/Reportes/modnum_t3.pdf" download>Direct Download</a>
+[Download hw3](https://github.com/pedraza-espitia/salvador/blob/master/Reportes/modnum_t3.pdf "tip: Right click and save link as ... for direct download")

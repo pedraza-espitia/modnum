@@ -17,7 +17,7 @@
 \newcommand{\ppcder}[3]{ \ensuremath {\dfrac{\partial^2 #1}{\partial #2\partial #3}}}
 
 \title{E1}
-\author{{Pedraza-Espitia S.}}
+\author{Pedraza-Espitia S\href{https://git.io/salvador}{.}}
 \date{}
 
 \begin{document}
@@ -30,7 +30,7 @@
 \begin{figure}[!hbt]
 \centering
   \includegraphics[width=0.6\textwidth]{E1_i4_ajuste}
-	\caption{Ajuste por mínimos cuadrados.}%
+	\caption{Ajuste por mínimos cuadrados, los coeficientes resultaron $a_0=$ 5.9434, $a_1=$ -0.4856 y $a_3=$ 3.1150.}%
 	\label{fig:e1ajuste}
 \end{figure}
 %%%%%
@@ -46,7 +46,7 @@
   \subfloat[Divergencia.]{\label{sfig:div}
   \includegraphics[width=0.35\textwidth]{E1_i5_c}
   }
-\caption{(a) Gr\'afica de la presion de superficie. (b) Divergencia del viento en el tercer nivel; la divergencia es  máxima en long \mbox{-97.09}, lat 19.46; 10 de agosto/2012 a las 8:00 GMT.}%
+\caption{(a) Gr\'afica de la presión de superficie. (b) Divergencia del viento en el tercer nivel; la divergencia es  máxima en long \mbox{-97.09}, lat 19.46; 10 de agosto/2012 a las 8:00 GMT. Significa que en ese instante los vectores de velocidad emergen mayormente desde esa posición (hay otros puntos donde emergen o divergen pero en este punto hay un máximo).}%
 \label{fig:netcdfdiver}
 \end{figure}
 %%%%%
@@ -54,4 +54,5 @@
 \section{Runge-Kutta de orden 4}
 \lstinputlisting[language=Matlab]{./MatlabCodes/E1_i6.m}
 \input{inputs/e1_i6.tex}
+%miniuri.com/2tz
 \end{document}

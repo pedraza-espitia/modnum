@@ -25,13 +25,59 @@
 \maketitle
 
 \section{Circulación atmosférica y circulación oceánica}
+Componentes de los modelos
 
 \section{Modelo de circulación atmosférica}
 
 \section{Elípticas, parabólicas o hiperbólicas}
 
+\section{... criterio de clasificación}
 
+\section{Criterio de Courant-Friedrichs-Lewy}
+
+\newcommand\derord[3][]{
+\def\temp{#1}\ifx\temp\empty
+	\ensuremath {\left( \dfrac{\mathrm{d}#2}{\mathrm{d}#3}} \right)_j%
+\else
+	\ensuremath {\left( \dfrac{\mathrm{d}^#1#2}{\mathrm{d}#3^#1}} \right)_j%
+\fi}
+%\newcommand\dero[3]{\ensuremath {\left( \dfrac{\mathrm{d}^#3#1}{\mathrm{d}#2^#3}} \right)_j}
+\newcommand\Dt{\ensuremath {\left( \Delta t \right)}}
+\newcommand\dxdero[3]{\ensuremath {\Dt^{\the\numexpr #3 - 1\relax} \derord[#3]{#1}{#2} }}
+
+\section{Aproximación de la derivada en diferencias hacia adelante, hacia atrás y centradas}
+
+\section{El esquema numérico de diferencias finitas hacia atrás es de orden 1}
+
+%%%%%%%%
+\begin{equation}
+x_{j-1} = x_j - \Dt\derord{x}{t} + \frac12\Dt^2\derord[2]{u}{t} - \frac1{3!}\Dt^3\derord[3]{u}{t} + \cdots
+\end{equation}
+
+\begin{equation}
+\frac{x_{j-1} - x_j}{\Dt} = - \derord{x}{t} + \frac12\Dt\derord[2]{u}{t} - 
+	\frac1{3!}\dxdero{u}{t}{3} + \cdots
+\end{equation}
+
+\begin{equation}
+\frac{x_{j} - x_{j-1}}{\Dt} = \derord{x}{t} - \frac12\Dt\derord[2]{u}{t} + \frac1{3!}\dxdero{u}{t}{3} - \cdots
+\end{equation}
+
+\begin{equation}
+\epsilon = - \frac12\Dt\derord[2]{u}{t} + \frac1{3!}\dxdero{u}{t}{3} - \cdots
+\end{equation}
+
+\begin{equation}
+\epsilon = O\Dt
+\end{equation}
+%%%%%%%%%
+
+\section{Ecuación de advección con el esquema de diferencias centradas}
 %\lstinputlisting[language=Matlab]{./MatlabCodes/t4inciso9.m}
 %\input{inputs/t4i9}
+
+\section{Esquema de salto de rana y estabilidad}
+
+\section{Esquema de diferencias centradas con \texorpdfstring{$O(\Delta x)$}{} error de orden 4}
 
 \end{document}

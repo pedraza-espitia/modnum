@@ -43,6 +43,8 @@ Componentes de los modelos
 \fi}
 %\newcommand\dero[3]{\ensuremath {\left( \dfrac{\mathrm{d}^#3#1}{\mathrm{d}#2^#3}} \right)_j}
 \newcommand\Dt{\ensuremath {\left( \Delta t \right)}}
+\newcommand\Dx{\ensuremath {\left( \Delta x \right)}}
+\newcommand\dDx{\ensuremath {\left( 2\Delta x \right)}}
 \newcommand\dxdero[3]{\ensuremath {\Dt^{\the\numexpr #3 - 1\relax} \derord[#3]{#1}{#2} }}
 
 \section{Aproximación de la derivada en diferencias hacia adelante, hacia atrás y centradas}
@@ -51,20 +53,20 @@ Componentes de los modelos
 
 %%%%%%%%
 \begin{equation}
-x_{j-1} = x_j - \Dt\derord{x}{t} + \frac12\Dt^2\derord[2]{u}{t} - \frac1{3!}\Dt^3\derord[3]{u}{t} + \cdots
+x_{j-1} = x_j - \Dt\derord{x}{t} + \frac12\Dt^2\derord[2]{x}{t} - \frac1{3!}\Dt^3\derord[3]{x}{t} + \cdots
 \end{equation}
 
 \begin{equation}
-\frac{x_{j-1} - x_j}{\Dt} = - \derord{x}{t} + \frac12\Dt\derord[2]{u}{t} - 
-	\frac1{3!}\dxdero{u}{t}{3} + \cdots
+\frac{x_{j-1} - x_j}{\Dt} = - \derord{x}{t} + \frac12\Dt\derord[2]{x}{t} - 
+	\frac1{3!}\dxdero{x}{t}{3} + \cdots
 \end{equation}
 
 \begin{equation}
-\frac{x_{j} - x_{j-1}}{\Dt} = \derord{x}{t} - \frac12\Dt\derord[2]{u}{t} + \frac1{3!}\dxdero{u}{t}{3} - \cdots
+\frac{x_{j} - x_{j-1}}{\Dt} = \derord{x}{t} - \frac12\Dt\derord[2]{x}{t} + \frac1{3!}\dxdero{x}{t}{3} - \cdots
 \end{equation}
 
 \begin{equation}
-\epsilon = - \frac12\Dt\derord[2]{u}{t} + \frac1{3!}\dxdero{u}{t}{3} - \cdots
+\epsilon = - \frac12\Dt\derord[2]{x}{t} + \frac1{3!}\dxdero{x}{t}{3} - \cdots
 \end{equation}
 
 \begin{equation}
@@ -79,5 +81,93 @@ x_{j-1} = x_j - \Dt\derord{x}{t} + \frac12\Dt^2\derord[2]{u}{t} - \frac1{3!}\Dt^
 \section{Esquema de salto de rana y estabilidad}
 
 \section{Esquema de diferencias centradas con \texorpdfstring{$O(\Delta x)$}{} error de orden 4}
+
+% u_{j+1}
+\begin{equation}
+u_{j+1} = u_j + \Dx\derord{u}{x} + \frac12\Dx^2\derord[2]{u}{x} + \frac1{3!}\Dx^3\derord[3]{u}{x} + \cdots
+\label{eq:ujp1}
+\end{equation}
+
+% u_{j-1}
+\begin{equation}
+u_{j-1} = u_j - \Dx\derord{u}{x} + \frac12\Dx^2\derord[2]{u}{x} - \frac1{3!}\Dx^3\derord[3]{u}{x} + \cdots
+\label{eq:ujm1}
+\end{equation}
+
+\eqref{eq:ujp1} - \eqref{eq:ujm1}:
+\begin{equation}
+u_{j+1} - u_{j-1} = 0 + 2\Dx\derord{u}{x} + 0 + \frac2{3!}\Dx^3\derord[3]{u}{x} + 0 + \frac2{5!}\Dx^5\derord[5]{u}{x} + \cdots
+\label{eq:ujp1mujm1}
+\end{equation}
+
+\begin{equation}
+\frac{u_{j+1} - u_{j-1}}{2\Dx} = \derord{u}{x} + \frac1{3!}\Dx^2\derord[3]{u}{x} + \frac1{5!}\Dx^4\derord[5]{u}{x} + \cdots
+\end{equation}
+
+
+% u_{j+2}
+\begin{equation}
+u_{j+2} = u_j + \dDx\derord{u}{x} + \frac12\dDx^2\derord[2]{u}{x} + \frac1{3!}\dDx^3\derord[3]{u}{x} + \cdots
+\label{eq:ujp2}
+\end{equation}
+
+% u_{j-2}
+\begin{equation}
+u_{j-2} = u_j - \dDx\derord{u}{x} + \frac12\dDx^2\derord[2]{u}{x} - \frac1{3!}\dDx^3\derord[3]{u}{x} + \cdots
+\label{eq:ujm2}
+\end{equation}
+
+\eqref{eq:ujp2} - \eqref{eq:ujm2}:
+\begin{equation}
+u_{j+2} - u_{j-2} = 0 + 2\dDx\derord{u}{x} + 0 + \frac2{3!}\dDx^3\derord[3]{u}{x} + 0 + \frac2{5!}\dDx^5\derord[5]{u}{x} + \cdots
+\label{eq:ujp2mujm2}
+\end{equation}
+
+\begin{equation}
+\frac{u_{j+2} - u_{j-2}}{2\dDx} = \derord{u}{x} + \frac1{3!}\dDx^2\derord[3]{u}{x} + \frac1{5!}\dDx^4\derord[5]{u}{x} + \cdots
+\label{eq:ujp2mujm2_s}
+\end{equation}
+
+El objetivo es eliminar el término con orden cuadrático $\dDx^2\derord[3]{u}{x}$, necesitamos los coeficientes apropiados
+
+
+\begin{equation}
+\def\coef{\frac43}
+\coef\frac{u_{j+1} - u_{j-1}}{2\Dx} = \coef\derord{u}{x} + \coef\frac1{3!}\Dx^2\derord[3]{u}{x} + \coef\frac1{5!}\Dx^4\derord[5]{u}{x} + \cdots
+\label{eq:4tercios}
+\end{equation}
+
+\begin{equation}
+\def\coef{\frac13}
+\coef\frac{u_{j+2} - u_{j-2}}{2\dDx} = \coef\derord{u}{x} + \coef\frac1{3!}\dDx^2\derord[3]{u}{x} + \coef\frac1{5!}\dDx^4\derord[5]{u}{x} + \cdots
+\label{eq:1tercio}
+\end{equation}
+
+\eqref{eq:4tercios} - \eqref{eq:1tercio}:
+\begin{equation}
+\def\u{\frac13}
+\def\c{\frac43}
+    \begin{split}
+\c\frac{u_{j+1} - u_{j-1}}{2\Dx}-\u\frac{u_{j+2} - u_{j-2}}{2\dDx} = & \derord{u}{x} + \cancel{ \left[ \c\frac{1}{3!} - \u\frac{1}{3!}(2)^2 \right] } \Dx^2\derord[3]{u}{x} + \\
+& \left[ \c\frac{\Dx^4}{5!} - \u\frac{\dDx^4}{5!} \right]\derord[5]{u}{x} + \\
+& \left[ \c\frac{\Dx^6}{7!} - \u\frac{\dDx^6}{7!} \right]\derord[7]{u}{x} + \cdots
+    \end{split}
+\label{eq:o4}
+\end{equation}
+
+\begin{equation}
+\def\u{\frac13}
+\def\c{\frac43}
+    \begin{split}
+\c\frac{u_{j+1} - u_{j-1}}{2\Dx}-\u\frac{u_{j+2} - u_{j-2}}{2\dDx} = & \derord{u}{x} + 
+\left[ -\frac{1}{30} \right]\Dx^4\derord[5]{u}{x} + \\
+& \left[ -\frac{1}{252} \right]\Dx^6\derord[7]{u}{x} + \cdots
+    \end{split}
+\label{eq:o4_s}
+\end{equation}
+
+\begin{equation}
+	\therefore \epsilon = O\Dx^4
+\end{equation}
 
 \end{document}

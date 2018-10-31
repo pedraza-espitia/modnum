@@ -81,7 +81,7 @@ for kk=1:tt
     V=double(Vv(:,:,8,kk));
     for ii = 2:Nx-1;
         for jj = 2:Ny-1;
-            Rot(ii,jj,kk) = (V(ii+1,jj)-V(ii-1,jj))/Del2X(ii,jj) - (U(ii,jj+1)-U(ii,jj-1))/Del2Y(ii,jj);
+            Rot(ii,jj,kk) = (V(ii,jj+1)-V(ii,jj-1))/Del2X(ii,jj) - (U(ii+1,jj)-U(ii-1,jj))/Del2Y(ii,jj);
         end
     end
 end
